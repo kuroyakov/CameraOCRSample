@@ -29,23 +29,33 @@
                                     <constraint firstAttribute="width" secondItem="7Gw-sg-0WP" secondAttribute="height" multiplier="3:4" id="Q1n-IC-UR9"/>
                                 </constraints>
                             </imageView>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fmb-Tk-1g2">
-                                <rect key="frame" x="0.0" y="404" width="320" height="164"/>
+                            <pickerView contentMode="scaleToFill" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="fmb-Tk-1g2">
+                                <rect key="frame" x="0.0" y="443" width="320" height="125"/>
                             </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RecognizedText" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gay-c1-vMT">
+                                <rect key="frame" x="16" y="412" width="288" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="7Gw-sg-0WP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="0T7-Ah-jf8"/>
+                            <constraint firstItem="gay-c1-vMT" firstAttribute="top" secondItem="7Gw-sg-0WP" secondAttribute="bottom" constant="8" id="48N-pu-Ukb"/>
                             <constraint firstAttribute="trailingMargin" secondItem="7Gw-sg-0WP" secondAttribute="trailing" id="BhU-Br-sB4"/>
-                            <constraint firstItem="fmb-Tk-1g2" firstAttribute="top" secondItem="7Gw-sg-0WP" secondAttribute="bottom" id="IIT-X7-3rJ"/>
                             <constraint firstItem="7Gw-sg-0WP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="dak-Lf-rak"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="gay-c1-vMT" secondAttribute="trailing" id="eBZ-Bh-ehi"/>
                             <constraint firstItem="fmb-Tk-1g2" firstAttribute="centerX" secondItem="7Gw-sg-0WP" secondAttribute="centerX" id="edh-dS-omr"/>
+                            <constraint firstItem="fmb-Tk-1g2" firstAttribute="top" secondItem="gay-c1-vMT" secondAttribute="bottom" constant="10" id="k0e-RP-HFp"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="fmb-Tk-1g2" secondAttribute="bottom" id="kkF-HC-bPh"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="gay-c1-vMT" secondAttribute="leading" id="rPe-NZ-FRY"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="filterPicker" destination="fmb-Tk-1g2" id="C59-XR-K88"/>
                         <outlet property="imageView" destination="7Gw-sg-0WP" id="qeS-qH-2wP"/>
+                        <outlet property="recogTextLabel" destination="gay-c1-vMT" id="rzc-km-6n3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

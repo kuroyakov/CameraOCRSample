@@ -13,6 +13,8 @@
 		1404DD281DE72B5C00942C81 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1404DD271DE72B5C00942C81 /* Assets.xcassets */; };
 		1404DD2B1DE72B5C00942C81 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1404DD291DE72B5C00942C81 /* LaunchScreen.storyboard */; };
 		1404DD331DE72C9600942C81 /* imageProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1404DD321DE72C9600942C81 /* imageProcessingManager.swift */; };
+		1433B513F9CEFCFF85B216BA /* Pods_CameraOCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4167B5C3879A62621F045A0C /* Pods_CameraOCR.framework */; };
+		1452D90E1DE73D6A0028B794 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 1452D90D1DE73D6A0028B794 /* tessdata */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,10 @@
 		1404DD2A1DE72B5C00942C81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1404DD2C1DE72B5C00942C81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1404DD321DE72C9600942C81 /* imageProcessingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = imageProcessingManager.swift; path = ../../../../Desktop/AVFoundationSample/AVFoundationSample/imageProcessingManager.swift; sourceTree = "<group>"; };
+		1452D90D1DE73D6A0028B794 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
+		4167B5C3879A62621F045A0C /* Pods_CameraOCR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CameraOCR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6407D5411F767DE66884E6E /* Pods-CameraOCR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CameraOCR.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CameraOCR/Pods-CameraOCR.debug.xcconfig"; sourceTree = "<group>"; };
+		D9A74324914FEDB3C2545C8E /* Pods-CameraOCR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CameraOCR.release.xcconfig"; path = "Pods/Target Support Files/Pods-CameraOCR/Pods-CameraOCR.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1433B513F9CEFCFF85B216BA /* Pods_CameraOCR.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +49,8 @@
 			children = (
 				1404DD1F1DE72B5C00942C81 /* CameraOCR */,
 				1404DD1E1DE72B5C00942C81 /* Products */,
+				8038B3EDB0182AACC15DB637 /* Pods */,
+				9AC867A3B607754AC99A375A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,6 +65,7 @@
 		1404DD1F1DE72B5C00942C81 /* CameraOCR */ = {
 			isa = PBXGroup;
 			children = (
+				1452D90D1DE73D6A0028B794 /* tessdata */,
 				1404DD321DE72C9600942C81 /* imageProcessingManager.swift */,
 				1404DD201DE72B5C00942C81 /* AppDelegate.swift */,
 				1404DD221DE72B5C00942C81 /* ViewController.swift */,
@@ -67,6 +77,23 @@
 			path = CameraOCR;
 			sourceTree = "<group>";
 		};
+		8038B3EDB0182AACC15DB637 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B6407D5411F767DE66884E6E /* Pods-CameraOCR.debug.xcconfig */,
+				D9A74324914FEDB3C2545C8E /* Pods-CameraOCR.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		9AC867A3B607754AC99A375A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4167B5C3879A62621F045A0C /* Pods_CameraOCR.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,9 +101,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1404DD2F1DE72B5C00942C81 /* Build configuration list for PBXNativeTarget "CameraOCR" */;
 			buildPhases = (
+				763BF033A8B4B1A32019FD1C /* [CP] Check Pods Manifest.lock */,
 				1404DD191DE72B5C00942C81 /* Sources */,
 				1404DD1A1DE72B5C00942C81 /* Frameworks */,
 				1404DD1B1DE72B5C00942C81 /* Resources */,
+				954C92BFEFB91D8ADD59B7D6 /* [CP] Embed Pods Frameworks */,
+				6137732B02BB5A3B71EFC489 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -128,12 +158,61 @@
 			buildActionMask = 2147483647;
 			files = (
 				1404DD2B1DE72B5C00942C81 /* LaunchScreen.storyboard in Resources */,
+				1452D90E1DE73D6A0028B794 /* tessdata in Resources */,
 				1404DD281DE72B5C00942C81 /* Assets.xcassets in Resources */,
 				1404DD261DE72B5C00942C81 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6137732B02BB5A3B71EFC489 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CameraOCR/Pods-CameraOCR-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		763BF033A8B4B1A32019FD1C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		954C92BFEFB91D8ADD59B7D6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CameraOCR/Pods-CameraOCR-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1404DD191DE72B5C00942C81 /* Sources */ = {
@@ -186,6 +265,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -236,6 +316,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -263,9 +344,11 @@
 		};
 		1404DD301DE72B5C00942C81 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B6407D5411F767DE66884E6E /* Pods-CameraOCR.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = R9L5KX33Q9;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = CameraOCR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kuroyan.CameraOCR;
@@ -276,9 +359,11 @@
 		};
 		1404DD311DE72B5C00942C81 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D9A74324914FEDB3C2545C8E /* Pods-CameraOCR.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = R9L5KX33Q9;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = CameraOCR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kuroyan.CameraOCR;
@@ -306,6 +391,7 @@
 				1404DD311DE72B5C00942C81 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

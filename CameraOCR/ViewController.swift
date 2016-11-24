@@ -6,20 +6,28 @@
 //  Copyright © 2016年 Katsutoshi Kuroya. All rights reserved.
 //
 
+/*
+ This software using the OSS: TesseractOCRiOS
+ The MIT License (MIT)
+ Copyright (c) 2014 Daniele Galiotto
+ https://github.com/gali8/Tesseract-OCR-iOS/blob/master/LICENSE.md
+ */
+
+
 import UIKit
 import UIKit
 import CoreImage
 import AVFoundation
+import TesseractOCR
 
 class ViewController: UIViewController,
     UIPickerViewDelegate, UIPickerViewDataSource,
-    AVCaptureVideoDataOutputSampleBufferDelegate
+    AVCaptureVideoDataOutputSampleBufferDelegate,
+    G8TesseractDelegate
 {
     
-//    @IBOutlet weak var urlDisplayLabel: UILabel!
+    @IBOutlet weak var recogTextLabel: UILabel!
     @IBOutlet weak var filterPicker: UIPickerView!
-//    @IBOutlet weak var focusLengthSlider: UISlider!
-//    @IBOutlet weak var exposureSlider: UISlider!
     @IBOutlet weak var imageView: UIImageView!
     var session = AVCaptureSession()
     var sourceCIImage: CIImage?
@@ -30,7 +38,8 @@ class ViewController: UIViewController,
     var videoDevice : AVCaptureDevice?
     var selectedIdx = 0
     
-    
+    let tesseract = G8Tesseract(language: "eng+ita+osd")
+
     public func synchronized(obj: AnyObject, closure: () -> Void) {
         objc_sync_enter(obj)
         closure()
@@ -77,26 +86,10 @@ class ViewController: UIViewController,
         if videoConnection!.isVideoOrientationSupported{
             videoConnection?.videoOrientation = AVCaptureVideoOrientation.portrait
         }
-        
-        // 露光スライダーバーの設定
-//        exposureSlider.maximumValue = self.videoDevice!.activeFormat.maxISO
-//        exposureSlider.minimumValue = self.videoDevice!.activeFormat.minISO
-//        let midISO = (exposureSlider.maximumValue + exposureSlider.minimumValue) / 2
-//        exposureSlider.value = midISO
-        
-        // フォーカススライダーバーの設定
-        
         try! videoDevice?.lockForConfiguration()
         // FPSを30にする
         videoDevice?.activeVideoMinFrameDuration = CMTimeMake(1, 20)
         videoDevice?.activeVideoMaxFrameDuration = CMTimeMake(1, 20)
-        // カメラデバイスの露光中央値に設定
-        //videoDevice?.exposureMode = .autoExpose
-        // 最初に中央値に設定すると暗くなってしまう（原因不明）
-        //videoDevice?.setExposureModeCustomWithDuration(AVCaptureExposureDurationCurrent, iso: midISO, completionHandler: nil)
-        
-        //videoDevice?.focusMode = .autoFocus
-//        videoDevice?.setFocusModeLockedWithLensPosition(focusLengthSlider.value, completionHandler: nil)
         
         videoDevice?.unlockForConfiguration()
         
@@ -105,6 +98,9 @@ class ViewController: UIViewController,
         
         filterPicker.delegate = self
         filterPicker.dataSource = self
+        
+        self.tesseract?.delegate = self
+        self.tesseract?.pageSegmentationMode = .autoOSD
     }
     
     override func didReceiveMemoryWarning() {
@@ -130,7 +126,7 @@ class ViewController: UIViewController,
             UIGraphicsBeginImageContextWithOptions(uiimage.size, false, 0.0)
             uiimage.draw(in: CGRect(x: 0.0, y: 0.0, width: uiimage.size.width, height: uiimage.size.height))
             // まずCIDetectorでテキスト領域認識をかける
-            //var recognizedText = ""
+            var recognizedText = ""
             if let textfeatures = self.imgProcManager.detector?.features(in: sourceCIImage!){
                 for f in textfeatures {
                     // CIの座標系とCG座標系が違うのでCG変換する
@@ -143,6 +139,26 @@ class ViewController: UIViewController,
                         cgcontext.setStrokeColor(UIColor.blue.cgColor)
                         cgcontext.stroke(rect)
                     }
+                    
+                    // OCRにかける画像を切り取る
+                    if let textImage = outImage.cropping(to: rect){
+                        self.synchronized(obj: self){
+                            self.tesseract?.image = UIImage(cgImage:textImage)
+                            if (self.tesseract?.recognize())!{
+                                print("recognizedText: \(self.tesseract?.recognizedText)")
+                                
+                                self.synchronized(obj: self){
+                                    recognizedText = (self.tesseract?.recognizedText)!
+                                }
+                            }
+                        }
+                        DispatchQueue.main.async(execute: {
+                            self.synchronized(obj: self){
+                                self.recogTextLabel.text = recognizedText
+                            }
+                        })
+                    }
+
                 }
             }
             uiimage = UIGraphicsGetImageFromCurrentImageContext()!
@@ -155,17 +171,6 @@ class ViewController: UIViewController,
         }
     }
     
-//    @IBAction func chageISO(_ sender: UISlider) {
-//        try! self.videoDevice?.lockForConfiguration()
-//        self.videoDevice?.setExposureModeCustomWithDuration(AVCaptureExposureDurationCurrent, iso: sender.value, completionHandler: nil)
-//        self.videoDevice?.unlockForConfiguration()
-//    }
-//    
-//    @IBAction func changeFocus(_ sender: UISlider) {
-//        try! self.videoDevice?.lockForConfiguration()
-//        videoDevice?.setFocusModeLockedWithLensPosition(focusLengthSlider.value, completionHandler: nil)
-//        self.videoDevice?.unlockForConfiguration()
-//    }
     /*
      pickerに表示する列数を返すデータソースメソッド.
      (実装必須)
