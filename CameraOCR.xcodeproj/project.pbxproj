@@ -12,6 +12,7 @@
 		1404DD261DE72B5C00942C81 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1404DD241DE72B5C00942C81 /* Main.storyboard */; };
 		1404DD281DE72B5C00942C81 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1404DD271DE72B5C00942C81 /* Assets.xcassets */; };
 		1404DD2B1DE72B5C00942C81 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1404DD291DE72B5C00942C81 /* LaunchScreen.storyboard */; };
+		1404DD331DE72C9600942C81 /* imageProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1404DD321DE72C9600942C81 /* imageProcessingManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		1404DD271DE72B5C00942C81 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1404DD2A1DE72B5C00942C81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1404DD2C1DE72B5C00942C81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1404DD321DE72C9600942C81 /* imageProcessingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = imageProcessingManager.swift; path = ../../../../Desktop/AVFoundationSample/AVFoundationSample/imageProcessingManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 		1404DD1F1DE72B5C00942C81 /* CameraOCR */ = {
 			isa = PBXGroup;
 			children = (
+				1404DD321DE72C9600942C81 /* imageProcessingManager.swift */,
 				1404DD201DE72B5C00942C81 /* AppDelegate.swift */,
 				1404DD221DE72B5C00942C81 /* ViewController.swift */,
 				1404DD241DE72B5C00942C81 /* Main.storyboard */,
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1404DD231DE72B5C00942C81 /* ViewController.swift in Sources */,
+				1404DD331DE72C9600942C81 /* imageProcessingManager.swift in Sources */,
 				1404DD211DE72B5C00942C81 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
