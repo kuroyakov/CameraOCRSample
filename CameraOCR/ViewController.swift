@@ -3,7 +3,7 @@
 //  CameraOCR
 //
 //  Created by Katsutoshi Kuroya on 2016/11/24.
-//  Copyright © 2016年 Katsutoshi Kuroya. All rights reserved.
+//  Copyright © 2016 Katsutoshi Kuroya. All rights reserved.
 //
 
 /*
@@ -29,51 +29,66 @@ class ViewController: UIViewController,
     @IBOutlet weak var recogTextLabel: UILabel!
     @IBOutlet weak var filterPicker: UIPickerView!
     @IBOutlet weak var imageView: UIImageView!
+
+    // --------------------------------------------------------
+    // For camera capture
+    // --------------------------------------------------------
     var session = AVCaptureSession()
     var sourceCIImage: CIImage?
     var sourceCGImage: CGImage?
-    var JpegData: Data?
-    var sendingBuffer: Data?
-    var imgProcManager = ImageProcessingManager()
     var videoDevice : AVCaptureDevice?
+
+    // --------------------------------------------------------
+    // Image processing object
+    // --------------------------------------------------------
+    var imgProcManager = ImageProcessingManager()
     var selectedIdx = 0
-    
+
+    // --------------------------------------------------------
+    // For text recognition
+    // --------------------------------------------------------
     let tesseract = G8Tesseract(language: "eng+ita+osd")
 
+    // --------------------------------------------------------
+    // Function for critical section
+    // --------------------------------------------------------
     public func synchronized(obj: AnyObject, closure: () -> Void) {
         objc_sync_enter(obj)
         closure()
         objc_sync_exit(obj)
     }
+    
+    // --------------------------------------------------------
+    // ViewController overrides
+    // --------------------------------------------------------
     override func viewWillAppear(_ animated: Bool) {
         
-        // キャプチャの設定
-        // 動画タイプである
+        // Configuration for video capture
         let videoDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
-        // 入力デバイスを取得
         let videoInput = try! AVCaptureDeviceInput(device: videoDevice)
         
-        // デバイスを本オブジェクトに保持する（後で制御するため）
+        // Retaining into the variable to control from another functions
         self.videoDevice = videoInput.device
         
-        // 出力の設定（連続画像モード）
+        // Configuration for output
         let myVideodataoutput = AVCaptureVideoDataOutput()
         myVideodataoutput.videoSettings = [String(kCVPixelBufferPixelFormatTypeKey): Int(kCVPixelFormatType_32BGRA)]
         myVideodataoutput.setSampleBufferDelegate(self, queue: DispatchQueue.global(qos: DispatchQoS.QoSClass.background))
         
-        // キャプチャセッションの設定
-        // 入力
+        // Configuration for the capture session
+        // Input
         self.session.addInput(videoInput)
-        // 出力
+        // Output
         self.session.addOutput(myVideodataoutput)
         
         //self.session.sessionPreset = AVCaptureSessionPresetHigh
-        // 取得画像サイズをVGAにする
+        // Capture size
         self.session.sessionPreset = AVCaptureSessionPreset640x480
         
         var videoConnection: AVCaptureConnection?
         self.session.beginConfiguration()
         
+        // Retrieving capture connection of video type
         for connection in myVideodataoutput.connections as! [AVCaptureConnection]
         {
             for port in connection.inputPorts as! [AVCaptureInputPort]{
@@ -83,11 +98,13 @@ class ViewController: UIViewController,
             }
         }
         
+        // Fix video capture orientation
         if videoConnection!.isVideoOrientationSupported{
             videoConnection?.videoOrientation = AVCaptureVideoOrientation.portrait
         }
         try! videoDevice?.lockForConfiguration()
-        // FPSを30にする
+
+        // Setting FPS(20)
         videoDevice?.activeVideoMinFrameDuration = CMTimeMake(1, 20)
         videoDevice?.activeVideoMaxFrameDuration = CMTimeMake(1, 20)
         
@@ -96,9 +113,11 @@ class ViewController: UIViewController,
         self.session.commitConfiguration()
         self.session .startRunning()
         
+        // Init for picker view
         filterPicker.delegate = self
         filterPicker.dataSource = self
         
+        // Init for OCR
         self.tesseract?.delegate = self
         self.tesseract?.pageSegmentationMode = .autoOSD
     }
@@ -108,7 +127,9 @@ class ViewController: UIViewController,
         // Dispose of any resources that can be recreated.
     }
     
-    // キャプチャ時に１フレーム取得するたびに呼ばれるコールバック
+    // --------------------------------------------------------
+    // Callback for video capture session
+    // --------------------------------------------------------
     func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
         
         let inCIImage  = CIImage(cvImageBuffer: CMSampleBufferGetImageBuffer(sampleBuffer)!)
@@ -125,25 +146,26 @@ class ViewController: UIViewController,
             var uiimage = UIImage(cgImage: outImage)
             UIGraphicsBeginImageContextWithOptions(uiimage.size, false, 0.0)
             uiimage.draw(in: CGRect(x: 0.0, y: 0.0, width: uiimage.size.width, height: uiimage.size.height))
-            // まずCIDetectorでテキスト領域認識をかける
+
+            // Finding text rects
             var recognizedText = ""
             if let textfeatures = self.imgProcManager.detector?.features(in: sourceCIImage!){
                 for f in textfeatures {
-                    // CIの座標系とCG座標系が違うのでCG変換する
+                    // Adjusting coordinate between CoreImage and CoreGraphics
                     var rect = f.bounds
                     rect.origin.y = uiimage.size.height - (rect.origin.y + rect.size.height)
                     
-                    // uiimageに矩形を描画する
+                    // Drawing rect 
                     if let cgcontext = UIGraphicsGetCurrentContext(){
                         cgcontext.setLineWidth(3.0)
-                        cgcontext.setStrokeColor(UIColor.blue.cgColor)
+                        cgcontext.setStrokeColor(UIColor(red: 0.2, green: 0.2, blue: 0.8, alpha: 1.0).cgColor)
                         cgcontext.stroke(rect)
                     }
                     
-                    // OCRにかける画像を切り取る
+                    // Recognition text by text rect (same as the above drawing rect)
                     if let textImage = outImage.cropping(to: rect){
                         self.synchronized(obj: self){
-                            self.tesseract?.image = UIImage(cgImage:textImage)
+                            self.tesseract?.image = UIImage(cgImage:textImage).g8_blackAndWhite()
                             if (self.tesseract?.recognize())!{
                                 print("recognizedText: \(self.tesseract?.recognizedText)")
                                 
@@ -152,6 +174,7 @@ class ViewController: UIViewController,
                                 }
                             }
                         }
+                        // Updating UILabel in the main thread
                         DispatchQueue.main.async(execute: {
                             self.synchronized(obj: self){
                                 self.recogTextLabel.text = recognizedText
@@ -164,41 +187,32 @@ class ViewController: UIViewController,
             uiimage = UIGraphicsGetImageFromCurrentImageContext()!
             UIGraphicsEndImageContext()
             
-            
+            // Updating ImageView in the main thread
             DispatchQueue.main.async(execute: {
                 self.imageView.image = uiimage
             })
         }
     }
     
-    /*
-     pickerに表示する列数を返すデータソースメソッド.
-     (実装必須)
-     */
+    // --------------------------------------------------------
+    // UIPickerViewDataSource
+    // --------------------------------------------------------
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    /*
-     pickerに表示する行数を返すデータソースメソッド.
-     (実装必須)
-     */
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
     {
         return self.imgProcManager.filters.count
     }
     
-    /*
-     pickerに表示する値を返すデリゲートメソッド.
-     */
+    // --------------------------------------------------------
+    // UIPickerViewDelegate
+    // --------------------------------------------------------
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
     {
         return self.imgProcManager.filterNames[row]
     }
-    
-    /*
-     pickerが選択された際に呼ばれるデリゲートメソッド.
-     */
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedIdx = row
     }

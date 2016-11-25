@@ -12,9 +12,9 @@
 		1404DD261DE72B5C00942C81 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1404DD241DE72B5C00942C81 /* Main.storyboard */; };
 		1404DD281DE72B5C00942C81 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1404DD271DE72B5C00942C81 /* Assets.xcassets */; };
 		1404DD2B1DE72B5C00942C81 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1404DD291DE72B5C00942C81 /* LaunchScreen.storyboard */; };
-		1404DD331DE72C9600942C81 /* imageProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1404DD321DE72C9600942C81 /* imageProcessingManager.swift */; };
 		1433B513F9CEFCFF85B216BA /* Pods_CameraOCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4167B5C3879A62621F045A0C /* Pods_CameraOCR.framework */; };
 		1452D90E1DE73D6A0028B794 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 1452D90D1DE73D6A0028B794 /* tessdata */; };
+		1452D9121DE87ECD0028B794 /* imageProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1452D9111DE87ECD0028B794 /* imageProcessingManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,8 +25,8 @@
 		1404DD271DE72B5C00942C81 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1404DD2A1DE72B5C00942C81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1404DD2C1DE72B5C00942C81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1404DD321DE72C9600942C81 /* imageProcessingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = imageProcessingManager.swift; path = ../../../../Desktop/AVFoundationSample/AVFoundationSample/imageProcessingManager.swift; sourceTree = "<group>"; };
 		1452D90D1DE73D6A0028B794 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
+		1452D9111DE87ECD0028B794 /* imageProcessingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = imageProcessingManager.swift; sourceTree = "<group>"; };
 		4167B5C3879A62621F045A0C /* Pods_CameraOCR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CameraOCR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6407D5411F767DE66884E6E /* Pods-CameraOCR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CameraOCR.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CameraOCR/Pods-CameraOCR.debug.xcconfig"; sourceTree = "<group>"; };
 		D9A74324914FEDB3C2545C8E /* Pods-CameraOCR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CameraOCR.release.xcconfig"; path = "Pods/Target Support Files/Pods-CameraOCR/Pods-CameraOCR.release.xcconfig"; sourceTree = "<group>"; };
@@ -66,9 +66,9 @@
 			isa = PBXGroup;
 			children = (
 				1452D90D1DE73D6A0028B794 /* tessdata */,
-				1404DD321DE72C9600942C81 /* imageProcessingManager.swift */,
 				1404DD201DE72B5C00942C81 /* AppDelegate.swift */,
 				1404DD221DE72B5C00942C81 /* ViewController.swift */,
+				1452D9111DE87ECD0028B794 /* imageProcessingManager.swift */,
 				1404DD241DE72B5C00942C81 /* Main.storyboard */,
 				1404DD271DE72B5C00942C81 /* Assets.xcassets */,
 				1404DD291DE72B5C00942C81 /* LaunchScreen.storyboard */,
@@ -220,7 +220,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1404DD231DE72B5C00942C81 /* ViewController.swift in Sources */,
-				1404DD331DE72C9600942C81 /* imageProcessingManager.swift in Sources */,
+				1452D9121DE87ECD0028B794 /* imageProcessingManager.swift in Sources */,
 				1404DD211DE72B5C00942C81 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

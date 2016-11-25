@@ -3,7 +3,7 @@
 //  CameraOCR
 //
 //  Created by Katsutoshi Kuroya on 2016/11/24.
-//  Copyright © 2016年 Katsutoshi Kuroya. All rights reserved.
+//  Copyright © 2016 Katsutoshi Kuroya. All rights reserved.
 //
 
 import UIKit
