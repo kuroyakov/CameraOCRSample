@@ -13,9 +13,9 @@ pod install
 
 After install TesseractOCRiOS, you open XCode by 'CameraOCRSample.xcworkspace'.
 
-## For using Xcode 7
+## For using Xcode 7 or later
 
-If you use Xcode 7, you may see the build error (link error) as following:
+If you use Xcode 7 or later, you may see the build error (link error) as following:
 
 ```
 ld: '/Users/[userName]/Library/Developer/Xcode/DerivedData/... .../libjsbindings iOS.a(Value.o)' does not contain bitcode. You must rebuild it with bitcode enabled (Xcode setting ENABLE_BITCODE), obtain an updated library from the vendor, or disable bitcode for this target. for architecture armv7
