@@ -2,6 +2,7 @@
 
 This sample project for Camera OCR app using TesseractOCRiOS.
 
+[Project page](https://kuroyakov.github.io/CameraOCRSample/ "project page")
 ## How to build
 
 You need to retrieve TesseractOCRiOS using CocoaPods. You can install it as following:
