@@ -38,7 +38,7 @@ class ImageProcessingManager
             let filter = CIFilter(name: $0, withInputParameters: nil)
             filter?.setDefaults()
             return filter
-        }.filter{$0! != nil}.map{$0!}
+        }.filter{$0 != nil}.map{$0!}
         
         // Text region detector
         self.detector = CIDetector(ofType: CIDetectorTypeText, context: nil, options: nil)

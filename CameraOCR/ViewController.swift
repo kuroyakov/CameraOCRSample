@@ -30,6 +30,7 @@ class ViewController: UIViewController,
     @IBOutlet weak var filterPicker: UIPickerView!
     @IBOutlet weak var imageView: UIImageView!
 
+    @IBOutlet weak var detectSwitch: UISwitch!
     // --------------------------------------------------------
     // For camera capture
     // --------------------------------------------------------
@@ -161,27 +162,27 @@ class ViewController: UIViewController,
                         cgcontext.setStrokeColor(UIColor(red: 0.2, green: 0.2, blue: 0.8, alpha: 1.0).cgColor)
                         cgcontext.stroke(rect)
                     }
-                    
-                    // Recognition text by text rect (same as the above drawing rect)
-                    if let textImage = outImage.cropping(to: rect){
-                        self.synchronized(obj: self){
-                            self.tesseract?.image = UIImage(cgImage:textImage).g8_blackAndWhite()
-                            if (self.tesseract?.recognize())!{
-                                print("recognizedText: \(self.tesseract?.recognizedText)")
-                                
-                                self.synchronized(obj: self){
-                                    recognizedText = (self.tesseract?.recognizedText)!
+                    if self.detectSwitch.isOn {                        
+                        // Recognition text by text rect (same as the above drawing rect)
+                        if let textImage = outImage.cropping(to: rect){
+                            self.synchronized(obj: self){
+                                self.tesseract?.image = UIImage(cgImage:textImage).g8_blackAndWhite()
+                                if (self.tesseract?.recognize())!{
+                                    print("recognizedText: \(self.tesseract?.recognizedText)")
+                                    
+                                    self.synchronized(obj: self){
+                                        recognizedText = (self.tesseract?.recognizedText)!
+                                    }
                                 }
                             }
+                            // Updating UILabel in the main thread
+                            DispatchQueue.main.async(execute: {
+                                self.synchronized(obj: self){
+                                    self.recogTextLabel.text = recognizedText
+                                }
+                            })
                         }
-                        // Updating UILabel in the main thread
-                        DispatchQueue.main.async(execute: {
-                            self.synchronized(obj: self){
-                                self.recogTextLabel.text = recognizedText
-                            }
-                        })
                     }
-
                 }
             }
             uiimage = UIGraphicsGetImageFromCurrentImageContext()!
